@@ -8,10 +8,15 @@ A scalable food delivery system designed using Spring Boot microservices archite
 Backend Services
 
     1) API Gateway (Port: 8080) : Single entry point for requests, handling routing and load balancing.
+    
     2) Eureka Service Discovery (Port: 8761) : Registers and discovers microservices for load balancing and monitoring.
+    
     3) User Service (Port: 8081) : Manages user authentication, profiles, and JWT security.
+    
     4) Restaurant Service (Port: 8082) : Handles restaurant data, menus, and image uploads.
+    
     5) Order Service (Port: 8083) : Processes orders, integrates with users/restaurants, and tracks order statuses.
+    
     6)Notification Service (Port: 8084) : Sends event-driven email notifications using Kafka.
 
 Tech Stack :->
