@@ -584,13 +584,160 @@ Response (200 OK):
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+✅ 29. Send Welcome Email
+URL: /api/v1/notifications/welcome-email
+
+Method: POST
+
+Description: Sends a welcome email to a new user via Kafka
+
+Request Body (EmailRequest):
+{
+  "toEmail": "user@example.com",
+  "subject": "Welcome to Foodie!",
+  "body": "Thank you for registering with Foodie!"
+}
+
+Response (200 OK):
+arduino
+"Email sent successfully"
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+✅ 30. Send Order Confirmation Email
+URL: /api/v1/notifications/order
+
+Method: POST
+
+Description: Sends order confirmation email when an order is placed
+
+Request Body (OrderResponse):
+{
+  "orderId": 123,
+  "userId": 1,
+  "restaurantId": 5,
+  "items": [
+    {
+      "menuItemId": 20,
+      "quantity": 2,
+      "price": 499.98
+    }
+  ],
+  "totalAmount": 499.98,
+  "status": "PLACED",
+  "createdAt": "2025-04-17T12:30:00"
+}
+
+Response (200 OK):
+arduino
+"Order notification sent successfully"
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+✅ 31. Send Reset Password Email
+URL: /api/v1/notifications/reset-password-email
+
+Method: POST
+
+Description: Sends an email with reset password instructions
+
+Request Body (EmailResetRequest):
+{
+  "toEmail": "user@example.com",
+  "templateData": {
+    "resetLink": "https://foodie.com/reset?token=abc123"
+  }
+}
 
 
+Response (200 OK):
+{
+  "success": true,
+  "message": "Email sent successfully"
+}
 
 
+Response (503 Service Unavailable) (if Kafka/email fails):
+{
+  "success": false,
+  "message": "Kafka broker unavailable"
+}
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+✅ 1. Restaurant Service Fallback
+URL: /fallback/restaurant
 
+Method: GET
+
+Description: Returned when the Restaurant Service is unavailable
+
+Response (200 OK):
+
+text
+Copy
+Edit
+"Restaurant Service is currently unavailable. Please try again later."
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+✅ 2. Order Service Fallback
+URL: /fallback/order
+
+Method: GET
+
+Description: Returned when the Order Service is unavailable
+
+Response (200 OK):
+
+text
+Copy
+Edit
+"Order Service is currently unavailable. Please try again later."
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+✅ 3. User Service Fallback
+URL: /fallback/user
+
+Method: GET
+
+Description: Returned when the User Service is unavailable
+
+Response (200 OK):
+
+text
+Copy
+Edit
+"User Service is currently unavailable. Please try again later."
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+✅ 1. List Connected Services
+URL: /api/gateway/services-connected
+
+Method: GET
+
+Description: Returns all services registered with the service discovery (e.g., Eureka) and their instance URIs. Useful for understanding what's currently connected to the API Gateway.
+
+🔁 Response (200 OK):
+json
+Copy
+Edit
+{
+  "users-service": [
+    "http://localhost:8081"
+  ],
+  "restaurant-service": [
+    "http://localhost:8082"
+  ],
+  "orders-service": [
+    "http://localhost:8083"
+  ],
+  "notifications-service": [
+    "http://localhost:8084"
+  ]
+}
 
 
 
