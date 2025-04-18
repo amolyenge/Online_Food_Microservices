@@ -665,7 +665,7 @@ Response (503 Service Unavailable) (if Kafka/email fails):
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-✅ 1. Restaurant Service Fallback
+✅ 32. Restaurant Service Fallback
 URL: /fallback/restaurant
 
 Method: GET
@@ -673,15 +673,11 @@ Method: GET
 Description: Returned when the Restaurant Service is unavailable
 
 Response (200 OK):
-
-text
-Copy
-Edit
 "Restaurant Service is currently unavailable. Please try again later."
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-✅ 2. Order Service Fallback
+✅ 33. Order Service Fallback
 URL: /fallback/order
 
 Method: GET
@@ -689,15 +685,11 @@ Method: GET
 Description: Returned when the Order Service is unavailable
 
 Response (200 OK):
-
-text
-Copy
-Edit
 "Order Service is currently unavailable. Please try again later."
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-✅ 3. User Service Fallback
+✅ 34. User Service Fallback
 URL: /fallback/user
 
 Method: GET
@@ -705,15 +697,11 @@ Method: GET
 Description: Returned when the User Service is unavailable
 
 Response (200 OK):
-
-text
-Copy
-Edit
 "User Service is currently unavailable. Please try again later."
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-✅ 1. List Connected Services
+✅ 35. List Connected Services
 URL: /api/gateway/services-connected
 
 Method: GET
@@ -721,9 +709,6 @@ Method: GET
 Description: Returns all services registered with the service discovery (e.g., Eureka) and their instance URIs. Useful for understanding what's currently connected to the API Gateway.
 
 🔁 Response (200 OK):
-json
-Copy
-Edit
 {
   "users-service": [
     "http://localhost:8081"
@@ -738,6 +723,3 @@ Edit
     "http://localhost:8084"
   ]
 }
-
-
-
