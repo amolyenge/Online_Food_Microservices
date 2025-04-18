@@ -271,13 +271,318 @@ Response (200 OK): UserDTO
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+✅ 17. Create Menu Item
+URL: /api/v1/menu-items/{restaurantId}
+
+Method: POST
+
+Auth: Optional (based on your security config)
+
+Request Body (MenuItemDTO):
+{
+  "name": "Veg Biryani",
+  "description": "Spicy rice with veggies",
+  "price": 199.99,
+  "imageUrl": null
+}
+Response (200 OK):
+{
+  "id": 101,
+  "name": "Veg Biryani",
+  "description": "Spicy rice with veggies",
+  "price": 199.99,
+  "imageUrl": "http://.../menu-items/images/veg-biryani.jpg"
+}
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+✅ 18. Get Menu Items by Restaurant ID
+URL: /api/v1/menu-items/restaurant/{restaurantId}
+
+Method: GET
+
+Response (200 OK):
+[
+  {
+    "id": 101,
+    "name": "Veg Biryani",
+    "description": "Spicy rice with veggies",
+    "price": 199.99,
+    "imageUrl": "http://.../menu-items/images/veg-biryani.jpg"
+  },
+  {
+    "id": 102,
+    "name": "Paneer Tikka",
+    "description": "Grilled paneer cubes",
+    "price": 249.00,
+    "imageUrl": "http://.../menu-items/images/paneer.jpg"
+  }
+]
+404 Not Found: If restaurant doesn't exist.
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+✅ 19. Upload Image for Menu Item
+URL: /api/v1/menu-items/{menuItemId}/upload-image
+
+Method: POST
+
+Content-Type: multipart/form-data
+
+Form Data:
+
+file: MultipartFile (image file)
+
+Response (200 OK):
+{
+  "id": 101,
+  "name": "Veg Biryani",
+  "description": "Spicy rice with veggies",
+  "price": 199.99,
+  "imageUrl": "http://.../menu-items/images/veg-biryani.jpg"
+}
+404 Not Found: If menu item not found
+
+500 Internal Server Error: If upload fails
 
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+✅ 20. Get Menu Item Image
+URL: /api/v1/menu-items/images/{filename}
+
+Method: GET
+
+Response (200 OK): Binary JPEG image file
+
+Headers:
+
+Content-Type: image/jpeg
+
+Content-Disposition: inline; filename="example.jpg"
+
+Cache-Control: max-age=31536000
 
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+✅ 21. Get Price by Menu Item ID
+URL: /api/v1/menu-items/{menuItemId}
+
+Method: GET
+
+Response (200 OK):
+
+Output
+199.99
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+✅ 22. Create Restaurant
+URL: /api/v1/restaurants
+
+Method: POST
+
+Request Body (RestaurantDTO):
+{
+  "name": "Spice Villa",
+  "address": "123 Main Street",
+  "description": "Authentic Indian cuisine",
+  "imageUrl": null
+}
+
+Response (201 Created):
+{
+  "id": 1,
+  "name": "Spice Villa",
+  "address": "123 Main Street",
+  "description": "Authentic Indian cuisine",
+  "imageUrl": "http://.../restaurants/images/spice-villa.jpg"
+}
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+✅ 23. Get All Restaurants (Paginated)
+URL: /api/v1/restaurants
+
+Method: GET
+
+Query Parameters:
+
+page: Page number (required)
+
+size: Page size (required)
+
+keyword: Search keyword (optional)
+
+Response (200 OK):
+{
+  "content": [
+    {
+      "id": 1,
+      "name": "Spice Villa",
+      "address": "123 Main Street",
+      "description": "Authentic Indian cuisine",
+      "imageUrl": "http://.../restaurants/images/spice-villa.jpg"
+    },
+    ...
+  ],
+  "totalPages": 5,
+  "totalElements": 100,
+  "number": 0,
+  "size": 20
+}
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+✅ 24. Upload Restaurant Image
+URL: /api/v1/restaurants/{restaurantId}/upload-image
+
+Method: POST
+
+Content-Type: multipart/form-data
+
+Form Data:
+
+file: MultipartFile (image file)
+
+Response (200 OK):
+{
+  "id": 1,
+  "name": "Spice Villa",
+  "address": "123 Main Street",
+  "description": "Authentic Indian cuisine",
+  "imageUrl": "http://.../restaurants/images/spice-villa.jpg"
+}
+404 Not Found: If restaurant not found
+
+500 Internal Server Error: On image processing error
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+✅ 25. Get Restaurant Image
+URL: /api/v1/restaurants/images/{filename}
+
+Method: GET
+
+Response (200 OK): Binary JPEG image
+
+Headers:
+
+Content-Type: image/jpeg
+
+Content-Disposition: inline; filename="spice-villa.jpg"
+
+Cache-Control: max-age=31536000
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+✅ 26. Create Order
+URL: /api/v1/orders
+
+Method: POST
+
+Request Body (OrderRequest):
+{
+  "userId": 1,
+  "restaurantId": 2,
+  "items": [
+    {
+      "menuItemId": 10,
+      "quantity": 2
+    },
+    {
+      "menuItemId": 11,
+      "quantity": 1
+    }
+  ],
+  "paymentMethod": "CREDIT_CARD",
+  "deliveryAddress": "456 Main Street"
+}
 
 
+Response (201 Created):
+{
+  "orderId": 101,
+  "userId": 1,
+  "restaurantId": 2,
+  "items": [
+    {
+      "menuItemId": 10,
+      "quantity": 2,
+      "price": 299.98
+    },
+    {
+      "menuItemId": 11,
+      "quantity": 1,
+      "price": 149.99
+    }
+  ],
+  "totalAmount": 449.97,
+  "status": "PLACED",
+  "createdAt": "2025-04-17T10:25:00"
+}
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+✅ 27. Get Order by ID
+URL: /api/v1/orders/{orderId}
+
+Method: GET
+
+Path Variable: orderId - Order ID to retrieve
+
+Response (200 OK):
+{
+  "orderId": 101,
+  "userId": 1,
+  "restaurantId": 2,
+  "items": [
+    {
+      "menuItemId": 10,
+      "quantity": 2,
+      "price": 299.98
+    }
+  ],
+  "totalAmount": 299.98,
+  "status": "PLACED",
+  "createdAt": "2025-04-17T10:25:00"
+}
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+✅ 28. Get All Orders (Paginated)
+URL: /api/v1/orders
+
+Method: GET
+
+Query Params:
+
+page (default = 0)
+
+size (default = 10)
+
+Response (200 OK):
+{
+  "content": [
+    {
+      "orderId": 101,
+      "userId": 1,
+      ...
+    },
+    {
+      "orderId": 102,
+      "userId": 2,
+      ...
+    }
+  ],
+  "totalPages": 5,
+  "totalElements": 50,
+  "number": 0,
+  "size": 10
+}
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
