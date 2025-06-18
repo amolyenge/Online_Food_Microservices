@@ -19,7 +19,7 @@ import com.amol.notifications_service.kafka.EmailProducerService;
 public class NotificationController {
     private final EmailProducerService emailProducerService;
 
-    // send email notification when use register
+    
     @PostMapping("/welcome-email")
     public String sendEmail(@RequestBody EmailRequest emailRequest) {
         emailProducerService.sendEmail(emailRequest);
