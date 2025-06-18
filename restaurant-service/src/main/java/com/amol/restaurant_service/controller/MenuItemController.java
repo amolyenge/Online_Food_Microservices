@@ -68,7 +68,7 @@ public class MenuItemController {
                 .body(resource);
     }
 
-    // get price by menu item id
+    
     @GetMapping("/{menuItemId}")
     public ResponseEntity<BigDecimal> getPriceByMenuItemId(@PathVariable Integer menuItemId) {
         BigDecimal price = menuItemService.getPriceByMenuItemId(menuItemId);
