@@ -43,14 +43,14 @@ public class FileStorageService {
     public String uploadImage(MultipartFile file, String oldFileName) {
         validateFile(file);
 
-        // Delete old file if it exists
+        
         if (oldFileName != null && !oldFileName.isEmpty()) {
             deleteImage(oldFileName);
         }
 
         String fileName = generateUniqueFileName(file);
         try {
-            // Copy file to the target location
+           
             Path targetLocation = this.fileStorageLocation.resolve(fileName);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
             return fileName;
@@ -68,7 +68,7 @@ public class FileStorageService {
             }
         } catch (IOException ex) {
             log.error("Error deleting file: {}", fileName, ex);
-            // We don't throw exception here as this is a cleanup operation
+           
         }
     }
 
@@ -103,7 +103,7 @@ public class FileStorageService {
     }
 
     private void validateFileSize(MultipartFile file) {
-        long maxSize = 5 * 1024 * 1024; // 5MB in bytes
+        long maxSize = 5 * 1024 * 1024; 
         if (file.getSize() > maxSize) {
             throw new FileStorageException("File size exceeds maximum limit of 5MB");
         }
