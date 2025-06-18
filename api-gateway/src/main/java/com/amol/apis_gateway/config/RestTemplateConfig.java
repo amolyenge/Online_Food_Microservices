@@ -9,7 +9,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Configuration
 public class RestTemplateConfig {
     @Bean
-//    @LoadBalanced
+
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
