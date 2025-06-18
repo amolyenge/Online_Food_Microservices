@@ -20,7 +20,7 @@ public class GatewayController {
         this.discoveryClient = discoveryClient;
     }
 
-    // expose the services connected to the API Gateway
+    
     @GetMapping("/services-connected")
     public Map<String, List<String>> getServices() {
         List<String> services = discoveryClient.getServices();
