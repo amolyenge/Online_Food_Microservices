@@ -75,7 +75,7 @@ public class JwtUtil {
 
     public boolean validateToken(String token) {
         try {
-            // Parse JWT token
+            
             Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
             return true;
         } catch (SignatureException | MalformedJwtException | UnsupportedJwtException | IllegalArgumentException ex) {
