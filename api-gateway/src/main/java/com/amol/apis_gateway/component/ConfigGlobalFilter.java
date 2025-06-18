@@ -58,7 +58,7 @@ public class ConfigGlobalFilter implements GlobalFilter, Ordered {
                 return handleUnauthorized(exchange);
             }
         } catch (RuntimeException e) {
-            // Log the error
+           
             logger.error("Error during token validation", e);
             return handleServerError(exchange, e);
         }
