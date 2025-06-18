@@ -17,7 +17,7 @@ import com.amol.users_service.service.PasswordResetService;
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
-//@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200")
 @Slf4j
 public class AuthController {
     private final AuthService authService;
