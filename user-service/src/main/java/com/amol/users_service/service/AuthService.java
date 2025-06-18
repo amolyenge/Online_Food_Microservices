@@ -53,14 +53,14 @@ public class AuthService {
 
     @Transactional
     public RegisterResponse register(RegisterRequest registerRequest) {
-        // Validate username and email uniqueness
+        
         validateNewUserCredentials(registerRequest);
 
-        // Create and save new user
+    
         User newUser = createNewUser(registerRequest);
         userRepository.save(newUser);
 
-        // Send welcome email asynchronously
+       
         sendWelcomeEmailAsync(registerRequest);
 
         log.info("User {} registered successfully", registerRequest.getUsername());
@@ -86,9 +86,7 @@ public class AuthService {
         return user;
     }
 
-    /**
-     * Sends welcome email asynchronously to avoid blocking the registration process.
-     */
+
     private void sendWelcomeEmailAsync(RegisterRequest registerRequest) {
         CompletableFuture.runAsync(() -> {
             EmailRequest emailRequest = new EmailRequest(
