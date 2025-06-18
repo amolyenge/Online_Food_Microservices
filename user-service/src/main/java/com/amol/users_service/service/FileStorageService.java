@@ -40,7 +40,7 @@ public class FileStorageService {
 
     public String storeFile(MultipartFile file) {
         try {
-            // Validate file name
+            
             if (file == null || file.getOriginalFilename() == null) {
                 throw new RuntimeException("Invalid file");
             }
@@ -49,7 +49,7 @@ public class FileStorageService {
             String newFileName = UUID.randomUUID().toString() + "." +
                     FilenameUtils.getExtension(fileName);
 
-            // Create the target location if it doesn't exist
+            
             Files.createDirectories(this.fileStorageLocation);
 
             Path targetLocation = this.fileStorageLocation.resolve(newFileName);
