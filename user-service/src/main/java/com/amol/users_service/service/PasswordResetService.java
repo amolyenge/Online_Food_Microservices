@@ -31,14 +31,14 @@ public class PasswordResetService {
     private final NotificationClient notificationClient;
     private final PasswordEncoder passwordEncoder;
 
-    // initiate password reset
+    
     public PasswordResetResponse initiatePasswordReset(ForgotPasswordRequest request) {
         try{
             User user = userRepository.findByEmailAndIsActiveTrue(request.getEmail())
                     .orElseThrow(() -> new RuntimeException("User not found"));
 
             String token = UUID.randomUUID().toString();
-            // Create or update token
+            
             PasswordResetToken resetToken = passwordResetTokenRepo.findByUser(user)
                     .orElseGet(() -> new PasswordResetToken(user, token));
 
@@ -46,9 +46,9 @@ public class PasswordResetService {
             resetToken.setExpiryDate(LocalDateTime.now().plusHours(24));
             resetToken.setUsed(false);
 
-            passwordResetTokenRepo.save(resetToken);  // Save token
+            passwordResetTokenRepo.save(resetToken);
 
-            // Send email
+            
             notificationClient.sendPasswordResetEmail(user.getEmail(), resetToken.getToken());
 
             return new PasswordResetResponse("Password reset instructions have been sent to your email", true);
@@ -61,7 +61,7 @@ public class PasswordResetService {
         }
     }
 
-    // reset password
+    
     public PasswordResetResponse resetPassword(ResetPasswordRequest request) {
         try {
             PasswordResetToken resetToken = passwordResetTokenRepo.findByToken(request.getToken())
@@ -72,7 +72,7 @@ public class PasswordResetService {
             User user = resetToken.getUser();
             user.setPassword(passwordEncoder.encode(request.getNewPassword()));
 
-            // Mark token as used
+          
             resetToken.setUsed(true);
 
             userRepository.save(user);
