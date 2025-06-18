@@ -54,14 +54,14 @@ public class UserService {
         }
     }
 
-    // get user by id
+    
     public UserDTO getUserById(Integer userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
         return userMapper.toUserDTO(user);
     }
 
-    // new user
+
     public UserDTO create(UserDTO userDTO) {
         validateNewUser(userDTO);
 
@@ -90,7 +90,7 @@ public class UserService {
         return userMapper.toUserDTO(updatedUser);
     }
 
-    // update entity
+    
     public void updateEntity(User user, UserDTO dto) {
         user.setUsername(dto.getUsername());
         user.setEmail(dto.getEmail());
