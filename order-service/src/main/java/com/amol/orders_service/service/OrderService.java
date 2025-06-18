@@ -37,7 +37,7 @@ public class OrderService {
     private final RestaurantClient restaurantClient;
     private final NotificationClient notificationClient;
 
-    // create order
+    
     public OrderResponse createOrder(OrderRequest orderRequest) {
         Order order = new Order();
         order.setUserId(orderRequest.getUserId());
@@ -66,7 +66,7 @@ public class OrderService {
                 .map(OrderItem::getSubtotal)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        // calculate tax
+        
         BigDecimal tax = subtotal.multiply(Constants.TAX_RATE);
 
         order.setTotalAmount(subtotal.add(tax));
@@ -74,7 +74,7 @@ public class OrderService {
         Order savedOrder = orderRepository.save(order);
         logger.info("Order created: " + savedOrder);
 
-        // send order notification
+        
         OrderResponse orderResponse = orderToOrderResponse(savedOrder);
         sendOrderNotification(orderResponse);
 
@@ -86,7 +86,7 @@ public class OrderService {
         return price.multiply(BigDecimal.valueOf(quantity));
     }
 
-    // get all orders
+   
     public Page<OrderResponse> getAllOrders(Pageable pageable) {
         return orderRepository.findAll(pageable)
                 .map(this::orderToOrderResponse);
