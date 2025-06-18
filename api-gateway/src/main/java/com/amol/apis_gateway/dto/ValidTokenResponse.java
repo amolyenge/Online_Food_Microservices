@@ -3,7 +3,7 @@ package com.amol.apis_gateway.dto;
 public class ValidTokenResponse {
     private boolean valid;
 
-    // Default constructor
+   
     public ValidTokenResponse() {}
 
     public ValidTokenResponse(Boolean valid) {
