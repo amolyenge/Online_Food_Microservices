@@ -15,7 +15,7 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
-public class EmailProducerService {//    service để gửi yêu cầu email vào Kafka topic
+public class EmailProducerService {
     private final static Logger logger = LoggerFactory.getLogger(EmailProducerService.class);
     private final KafkaTemplate<String, Object> kafkaTemplate;
 
