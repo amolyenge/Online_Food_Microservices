@@ -64,7 +64,7 @@ public class MenuItemController {
         return ResponseEntity.ok()
                 .contentType(MediaType.IMAGE_JPEG)
                 .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + resource.getFilename() + "\"")
-                .header(HttpHeaders.CACHE_CONTROL, "max-age=31536000") // Cache for 1 year
+                .header(HttpHeaders.CACHE_CONTROL, "max-age=31536000") 
                 .body(resource);
     }
 
