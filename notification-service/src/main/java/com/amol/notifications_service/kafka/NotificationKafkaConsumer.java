@@ -14,7 +14,7 @@ import com.amol.notifications_service.service.EmailService;
 
 @Service
 @RequiredArgsConstructor
-public class NotificationKafkaConsumer {//    Kafka Consumer để lắng nghe và xử lý các yêu cầu email cũng như send notification qua websocket
+public class NotificationKafkaConsumer {
 
     private final static Logger logger = LoggerFactory.getLogger(NotificationKafkaConsumer .class);
     private final EmailService emailService;
