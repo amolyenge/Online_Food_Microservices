@@ -45,12 +45,11 @@ public class RestaurantService {
                 .toList();
     }
 
-    // upload image for restaurant
     public RestaurantDTO uploadImage(Integer restaurantId, MultipartFile file) throws IOException {
         Restaurant restaurant = restaurantRepository.findById(restaurantId)
                 .orElseThrow(() -> new RestaurantNotFoundException("Restaurant not found"));
 
-        // Get old image filename before updating
+        
         String oldImageFileName = restaurant.getImage();
 
         String newImageFileName = fileStorageService.uploadImage(file, oldImageFileName);
@@ -87,7 +86,7 @@ public class RestaurantService {
     }
 
     public Page<RestaurantDTO> searchRestaurants(String keyword, Pageable pageable) {
-        // Handle null or empty keyword by setting it to null to trigger 'all results' behavior
+       
         if (keyword == null || keyword.trim().isEmpty()) {
             keyword = null;
         }
