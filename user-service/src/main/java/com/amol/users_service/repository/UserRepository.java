@@ -21,7 +21,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     void deleteByUserId(Integer userId);
 
-//    Page<User> findByIsActiveTrue(Pageable pageable);
+    Page<User> findByIsActiveTrue(Pageable pageable);
     Page<User> findByIsActiveTrue(Pageable pageable);
 
     boolean existsByEmailAndIsActiveTrue(String email);
