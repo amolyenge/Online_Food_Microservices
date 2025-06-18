@@ -50,37 +50,34 @@ public class ProfileService {
 
         boolean usernameChanged = !user.getUsername().equals(profileDTO.getUsername());
 
-        // Validate unique constraints
+      
         validateProfileUpdate(user, profileDTO, usernameChanged);
 
         user.setUsername(profileDTO.getUsername());
         user.setEmail(profileDTO.getEmail());
         user.setAddress(profileDTO.getAddress());
 
-        // Handle profile image update
+        
         handleProfileImageUpdate(user, profileImage);
 
         User savedUser = userRepository.save(user);
 
-        // Build and return response
+     
         return buildProfileResponseWithToken(savedUser, usernameChanged);
     }
 
     private void handleProfileImageUpdate(User user, MultipartFile profileImage) {
         if (profileImage != null && !profileImage.isEmpty()) {
-            // Delete existing profile image if exists
+           
             Optional.ofNullable(user.getProfileImageName())
                     .ifPresent(fileStorageService::deleteFile);
 
-            // Store new profile image
+            
             String fileName = fileStorageService.storeFile(profileImage);
             user.setProfileImageName(fileName);
         }
     }
 
-    /**
-     * Builds profile response with new JWT token if username changed.
-     */
     private ProfileResponse buildProfileResponseWithToken(User user, boolean usernameChanged) {
         String imageUrl = Optional.ofNullable(user.getProfileImageName())
                 .map(fileName -> baseUrl + "/api/v1/users/profile/image/" + fileName)
