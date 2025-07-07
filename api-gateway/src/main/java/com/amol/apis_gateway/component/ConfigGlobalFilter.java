@@ -89,7 +89,7 @@ public class ConfigGlobalFilter implements GlobalFilter, Ordered {
 
     private Mono<Void> handleServerError(ServerWebExchange exchange, Throwable e) {
         logger.error("Server error during request processing", e);
-        exchange.getResponse().setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
+      //  exchange.getResponse().setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR);
         return exchange.getResponse().setComplete();
     }
 }
